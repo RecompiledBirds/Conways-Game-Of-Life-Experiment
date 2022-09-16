@@ -16,8 +16,10 @@ public class Game : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+    //Create and empty board and queue
         gameBoard = new int[gameBoardSize,gameBoardSize];
         queue = new int[gameBoardSize,gameBoardSize];
+        //Paint the tilemap
         for(int x = 0; x < gameBoardSize; x++)
         {
             for(int y = 0; y < gameBoardSize; y++)
@@ -35,16 +37,19 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    //Pause/unpause simulation
         if (Input.GetKeyDown(KeyCode.Space))
             playing = !playing;
         if (playing)
         {
+        //Do simulation everye 100 ticks
             if (tick >= 100)
             {
                 tick = 0;
                 PrepareQueue();
                 UpdateBoard();
             }
+            //Tick increments by the speed varible
             tick += speed;
         }
 
@@ -59,6 +64,7 @@ public class Game : MonoBehaviour
             Debug.Log(speed);
             speed -= 0.5f;
         }
+        //Clamp the speed so it never stops, and never goes too fast.
         speed = Mathf.Clamp(speed, 1, 100);
 
         //reset board if needed
@@ -68,12 +74,16 @@ public class Game : MonoBehaviour
             gameBoard = new int[gameBoardSize, gameBoardSize];
         }
         
+        //"Paint" cells with left mouse button
         if (Input.GetKey(KeyCode.Mouse1))
         {
+            //Get the position of the mouse cursor
             Vector3 pos= Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            //Convert it to a Vector3Int for use with our tilemap and 2D arrays
             Vector3Int castedPost = new Vector3Int((int)pos.x, (int)pos.y, 0);
             if (castedPost.x > 0 && castedPost.y > 0 && castedPost.x < gameBoardSize && castedPost.y < gameBoardSize)
             {
+                //Set needed values
                 gameBoard[castedPost.x, castedPost.y] = 1;
                 map.SetTile(castedPost, cell);
                 map.RefreshTile(castedPost);
@@ -128,20 +138,18 @@ public class Game : MonoBehaviour
     public int GetNeighbors(int x, int y)
     {
         int amount=0;
-        //Move along the board and get the amount of neighbors;
-        //Debug.Log($"{x},{y}");
+        //Move in a 3x3 space around the center to find all possible neighbors
         for(int xPos = x - 1; xPos <= x+1; xPos++)
         {
             for(int yPos = y-1; yPos<=y+1; yPos++)
             {
-               
+               //Make sure it is not out of bounds
                 if (xPos >= 0 && yPos >= 0 && xPos < gameBoardSize && yPos < gameBoardSize)
                 {
+                //Make sure it is not the center cell
                     if (!(yPos == y && xPos == x))
                     {
-                  //      Debug.Log($"Checking {xPos},{yPos}..");
                         amount += gameBoard[xPos, yPos];
-                  //      Debug.Log($"Found: {gameBoard[xPos, yPos]}");
                     }
                     
                 }
@@ -151,41 +159,26 @@ public class Game : MonoBehaviour
         return amount;
     }
 
-    public List<Vector2Int> FindEmptyNeighbors(int x, int y)
-    {
-        List<Vector2Int> neighbors = new List<Vector2Int>();
-        for (int xPos = x - 1; xPos <= x + 1; xPos++)
-        {
-            for (int yPos = y - 1; yPos <= y + 1; yPos++)
-            {
-
-                if (xPos >= 0 && yPos >= 0 && xPos < gameBoardSize && yPos < gameBoardSize)
-                {
-                    if (!(yPos == y && xPos == x))
-                    {
-                        neighbors.Add(new Vector2Int(xPos, yPos));
-                    }
-
-                }
-            }
-        }
-        return neighbors.ToList();
-    }
 
     //Update the board with new tiles.
     public void UpdateBoard()
     {
+    //Move through the entire board
         for(int x = 0; x < gameBoardSize; x++)
         {
             for(int y =0; y < gameBoardSize; y++)
             {
+                //As both of these are numbers, we can add them together.
+                //This saves time setting values in queue, by only setting relevant values.
                 gameBoard[x, y] += queue[x, y];
+                
                 if (gameBoard[x, y] > 1)
                     gameBoard[x, y] = 1;
-       //         Debug.Log($"Placing {queue[x, y]} at {x},{y}");
-      //          Debug.Log($"Board at {x},{y}: {gameBoard[x, y]}");
+                    
+                //Get the cell
                 int item = gameBoard[x, y];
-
+                
+                //Paint the map with the new cells
                 switch (item)
                 {
                     case 0:
@@ -198,6 +191,7 @@ public class Game : MonoBehaviour
                 
             }
         }
+        //Reset the queue
         queue = new int[gameBoardSize, gameBoardSize];
     }
 }
