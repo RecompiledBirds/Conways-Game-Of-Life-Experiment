@@ -119,6 +119,7 @@ public class Game : MonoBehaviour
                         break;
                     //Reproduction
                     case 0:
+                        //Has 3 living neighbors, becomes alive
                         if (neighborCount == 3)
                             queue[x, y] = 1;
                         break;
