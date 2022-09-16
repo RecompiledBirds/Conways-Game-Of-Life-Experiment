@@ -32,12 +32,14 @@ public class Game : MonoBehaviour
         }
     }
 
+    //These are simply used to determine if and how fast the simulation is running.
     bool playing = false;
     float speed=100;
     float tick = 0;
     // Update is called once per frame
     void Update()
     {
+    //Inputs should become a switch case later.
     //Pause/unpause simulation
         if (Input.GetKeyDown(KeyCode.Space))
             playing = !playing;
