@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class Game : MonoBehaviour
 {
+    //These are defined in the Unity Inspector tab
     public Tile cell;
     public Tile empty;
     public Tilemap map;
