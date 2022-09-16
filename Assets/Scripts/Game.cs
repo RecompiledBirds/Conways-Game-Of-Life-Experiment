@@ -77,13 +77,13 @@ public class Game : MonoBehaviour
         //"Paint" cells with left mouse button
         if (Input.GetKey(KeyCode.Mouse1))
         {
-            //Get the position of the mouse cursor
+            //Get the position of the mouse cursor in the game world
             Vector3 pos= Camera.main.ScreenToWorldPoint(Input.mousePosition);
             //Convert it to a Vector3Int for use with our tilemap and 2D arrays
             Vector3Int castedPost = new Vector3Int((int)pos.x, (int)pos.y, 0);
             if (castedPost.x > 0 && castedPost.y > 0 && castedPost.x < gameBoardSize && castedPost.y < gameBoardSize)
             {
-                //Set needed values
+                //Set cell values at position
                 gameBoard[castedPost.x, castedPost.y] = 1;
                 map.SetTile(castedPost, cell);
                 map.RefreshTile(castedPost);
