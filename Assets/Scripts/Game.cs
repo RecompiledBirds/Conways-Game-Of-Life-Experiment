@@ -109,7 +109,7 @@ public class Game : MonoBehaviour
                     //Death
                     case (1):
                         //underpopulated
-                        if (neighborCount > 2)
+                        if (neighborCount < 2)
                             queue[x, y] = -1;
                         //overpopulated
                         if (neighborCount > 3)
