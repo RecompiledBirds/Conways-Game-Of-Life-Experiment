@@ -108,7 +108,7 @@ public class Game : MonoBehaviour
                         }
                         break;
                     //Reproduction
-                    case 2:
+                    case 0:
                         if (neighborCount == 3)
                             queue[x, y] = 1;
                         break;
