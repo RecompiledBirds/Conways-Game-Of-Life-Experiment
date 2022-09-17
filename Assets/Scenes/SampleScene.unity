@@ -256,7 +256,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 25.344572
+  orthographic size: 59.72286
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -299,10 +299,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5f58e42b2a591b4688028b428b81ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cell: {fileID: 11400000, guid: 67b7d29d4186e0d4d9d131d2f65b2062, type: 2}
   empty: {fileID: 11400000, guid: b9058458e94b4974dbc2d98bb84a24fb, type: 2}
   map: {fileID: 1689935981}
   gameBoardSize: 100
+  cellTypes:
+  - {fileID: 11400000, guid: 822b528adb7d0404f8a5185f73bc31eb, type: 2}
+  - {fileID: 11400000, guid: e57d256f28c645f4295b9e0648ec30bf, type: 2}
+  - {fileID: 11400000, guid: f3178e42add0e644b94e42b0b93124e9, type: 2}
+  - {fileID: 11400000, guid: ddbba324912ce7648b88d50ae984052e, type: 2}
+  selectedCell: {fileID: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
