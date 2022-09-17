@@ -90,7 +90,6 @@ public class Cell : ScriptableObject
 
     public int GetNeighbors(Cell[,] map, Vector2Int position,int gameBoardSize)
     {
-        List<Cell> knownCells = new List<Cell>();
         float amount = 0;
         //Move in a 3x3 space around the center to find all possible neighbors
         for (int xPos = position.x - 1; xPos <= position.x + 1; xPos++)
@@ -114,11 +113,10 @@ public class Cell : ScriptableObject
                     {
                         if (map[x, y] != null)
                         {
-                            knownCells.Add(map[x, y]);
                             if (!carnivoreCell)
                                 amount += map[x, y] == this ? 1 : 0;
                             else
-                                amount += (knownCells.Any(x=>x==this)) ? map[x,y]==this? 1 : 1 : 0;
+                                amount += map[x,y]==this? 1 : 0;
                         }
                     }
             }

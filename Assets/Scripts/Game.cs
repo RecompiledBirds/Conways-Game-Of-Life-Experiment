@@ -93,9 +93,12 @@ public class Game : MonoBehaviour
         {
             customCell.carnivoreCell = !customCell.carnivoreCell;
         }
-        customCell.requiredNeighborsForReproduction = int.Parse(customReproducePop);
-        customCell.requiredNeighborsForOverPopDeath = int.Parse(customOverPop);
-        customCell.requiredNeighborsForUnderPopDeath = int.Parse(customUnderPop);
+        if(customReproducePop!=""&&customReproducePop!=" "&&customReproducePop!=null)
+            customCell.requiredNeighborsForReproduction = int.Parse(customReproducePop);
+        if (customOverPop != "" && customOverPop != " " && customOverPop != null)
+            customCell.requiredNeighborsForOverPopDeath = int.Parse(customOverPop);
+        if (customUnderPop != "" && customUnderPop != " " && customUnderPop != null)
+            customCell.requiredNeighborsForUnderPopDeath = int.Parse(customUnderPop);
     }
 
     //These are simply used to determine if and how fast the simulation is running.
