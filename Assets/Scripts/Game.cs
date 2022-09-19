@@ -60,6 +60,7 @@ public class Game : MonoBehaviour
     {
         Vector2 screenSize = new Vector2(Screen.width, Screen.height);
         Rect rect = new Rect(new Vector2(0, 0), new Vector2(screenSize.x / 4, screenSize.y));
+        //Show basic controls
         if(GUILayout.Button("Reset (R)"))
         {
             Reset();
@@ -76,12 +77,15 @@ public class Game : MonoBehaviour
         {
             Load();
         }
+        //Display simulation vars
         GUILayout.TextArea($"Cell Count: {cellCount}");
         GUILayout.TextArea($"Sim speed: {speed}");
+        //Display cells
         foreach(Cell cell in cellTypes)
         {
             GUILayout.TextArea($"{cell.id} ({cell.hotKey}){(selectedCell==cell?"(Current)":"")}");
         }
+        //Custom cell values
         GUILayout.TextArea($"Custom cell (C): {(selectedCell == customCell ? "(Current)" : "")}");
         GUILayout.TextArea("Underpopulated at:");
         customUnderPop = GUILayout.TextField(customUnderPop);
@@ -93,6 +97,7 @@ public class Game : MonoBehaviour
         {
             customCell.carnivoreCell = !customCell.carnivoreCell;
         }
+        //Set values
         if(customReproducePop!=""&&customReproducePop!=" "&&customReproducePop!=null)
             customCell.requiredNeighborsForReproduction = int.Parse(customReproducePop);
         if (customOverPop != "" && customOverPop != " " && customOverPop != null)
