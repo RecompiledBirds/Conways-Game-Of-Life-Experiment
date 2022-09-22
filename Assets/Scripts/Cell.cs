@@ -7,6 +7,7 @@ using UnityEngine.Tilemaps;
 [CreateAssetMenu(fileName ="New CellType",menuName ="Cells/New Cell type")]
 public class Cell : ScriptableObject
 {
+//Set in the Unity ScriptableObject editor
     public Sprite baseSprite;
     public static Sprite sprite;
     public Color CellColor;
@@ -18,7 +19,10 @@ public class Cell : ScriptableObject
     public KeyCode hotKey;
     public bool ages = false;
     public int maxAgeInTicks = 100;
+    
+    //Stores tiles
     private Dictionary<int,Tile> tiles = new Dictionary<int,Tile>();
+    
     //Generate tiles, etc
     public void Setup()
     {
@@ -42,6 +46,7 @@ public class Cell : ScriptableObject
             }
         }
     }
+    
     public Tile GetTile(int age)
     {
         if (!ages)
